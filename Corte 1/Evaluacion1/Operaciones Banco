@@ -1,0 +1,33 @@
+public class Banco {
+    // Atributo privado para el saldo de la cuenta
+    private double saldo;
+
+    // Constructor para inicializar el saldo
+    public Banco(double saldoInicial) {
+        saldo = saldoInicial;
+    }
+
+    // Getter para obtener el saldo
+    public double getSaldo() {
+        return saldo;
+    }
+
+    // Setter para establecer el saldo
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
+    }
+
+    // Método para realizar un depósito
+    public void depositar(double cantidad) {
+        if (cantidad > 0) {
+            saldo += cantidad;
+        }
+    }
+
+    // Método para realizar un retiro
+    public void retirar(double cantidad) {
+        if (cantidad > 0 && cantidad <= saldo) {
+            saldo -= cantidad;
+        }
+    }
+}
