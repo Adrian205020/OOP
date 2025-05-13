@@ -3,22 +3,20 @@ import javax.swing.JOptionPane;
 public class BancoInterfaz {
 
     public static void main(String[] args) {
-        // Crear una instancia de la clase Banco con un saldo inicial de 0
-        Banco cuenta = new Banco(0); 
+        Banco cuenta = new Banco(0);
+
+        String[] opciones = {"Depositar", "Retirar", "Ver Saldo", "Salir"};
 
         while (true) {
-            // Menú para seleccionar la opción
-            String opcion = JOptionPane.showInputDialog(null,
-                    "Bienvenido al Banco\n1. Depositar\n2. Retirar\n3. Ver Saldo\n4. Salir",
-                    "Menú", JOptionPane.QUESTION_MESSAGE);
+            int seleccion = JOptionPane.showOptionDialog(null,"Bienvenido al Banco","Menú", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opciones, opciones[0]);
 
-            if (opcion == null) {
-                break; // Si el usuario cancela, salimos del ciclo
+            if (seleccion == -1 || seleccion == 3) {
+                JOptionPane.showMessageDialog(null, "Gracias por usar el Banco");
+                System.exit(0);
             }
 
-            switch (opcion) {
-                case "1":
-                    // Depositar dinero
+            switch (seleccion) {
+                case 0: // Depositar
                     try {
                         double cantidadDeposito = Double.parseDouble(JOptionPane.showInputDialog(null,
                                 "Ingrese la cantidad a depositar:"));
@@ -29,35 +27,27 @@ public class BancoInterfaz {
                     }
                     break;
 
-                case "2":
-                    // Retirar dinero
+                case 1: // Retirar
                     try {
                         double cantidadRetiro = Double.parseDouble(JOptionPane.showInputDialog(null,
                                 "Ingrese la cantidad a retirar:"));
                         if (cantidadRetiro > cuenta.getSaldo()) {
-                            JOptionPane.showMessageDialog(null, "Saldo insuficiente para realizar el retiro (Verifique su saldo)");
+                            JOptionPane.showMessageDialog(null, "Saldo insuficiente para realizar el retiro.");
                         } else {
                             cuenta.retirar(cantidadRetiro);
                             JOptionPane.showMessageDialog(null, "Retiro exitoso. Saldo actual: $" + cuenta.getSaldo());
                         }
                     } catch (NumberFormatException e) {
-                        JOptionPane.showMessageDialog(null, "Por favor ingrese un número válido");
+                        JOptionPane.showMessageDialog(null, "Por favor ingrese un número válido.");
                     }
                     break;
 
-                case "3":
-                    // Ver el saldo
+                case 2: // Ver Saldo
                     JOptionPane.showMessageDialog(null, "Saldo actual: $" + cuenta.getSaldo());
                     break;
 
-                case "4":
-                    // Salir del programa
-                    JOptionPane.showMessageDialog(null, "Gracias por usar el Banco");
-                    System.exit(0);
-                    break;
-
                 default:
-                    JOptionPane.showMessageDialog(null, "Opción no válida. Por favor intente de nuevo.");
+                    JOptionPane.showMessageDialog(null, "Opción no válida.");
                     break;
             }
         }
